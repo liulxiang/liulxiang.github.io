@@ -1,513 +1,1132 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>小护康养 mini · 开源项目</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠客来科技 - 宠物行业数字化服务专家 | 宠物一物一码溯源 · SaaS 解决方案</title>
+    <meta name="description" content="宠客来科技专注宠物行业数字化服务，旗下拥有宠码通（宠物一物一码溯源）、码上守护（宠物防走丢与数字铭牌）、码上选宠（门店活体交易SaaS）、家记时刻（家庭一物一码共享记事）、银杏树康养SAAS系统（康养机构数字化管理）及灵活用工软件定制服务。">
+    <meta name="keywords" content="宠客来科技,宠码通,码上守护,码上选宠,家记时刻,银杏树康养,康养SAAS,宠物一物一码,宠物溯源,宠物防走丢,宠物建档,宠物活体交易SaaS,软件定制,宠物行业数字化">
+    <meta name="author" content="宠客来科技">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="theme-color" content="#081A3F">
+    <link rel="canonical" href="https://www.chongkelai.com/">
+    <link rel="icon" type="image/svg+xml" href="statics/images/favicon.svg">
 
-  <!-- Element Plus 样式 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@2.10.1/dist/index.css" />
-  <!-- Vue 3（含运行时编译器，可在浏览器直接编译模板） -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.global.prod.js"></script>
-  <!-- Element Plus 全量包 -->
-  <script src="https://cdn.jsdelivr.net/npm/element-plus@2.10.1/dist/index.full.min.js"></script>
-  <!-- Element Plus 图标 -->
-  <script src="https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.3.1/dist/index.iife.min.js"></script>
+    <!-- 社交分享（Open Graph / Twitter Card） -->
+    <meta property="og:title" content="宠客来科技 - 宠物行业数字化服务专家 | 一物一码 · SaaS 解决方案">
+    <meta property="og:description" content="以「一物一码」为核心，为宠物行业、门店与康养机构提供全链路数字化解决方案：宠物溯源、防走丢铭牌、活体交易SaaS、家庭共享记事、康养SAAS与软件定制。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.chongkelai.com/">
+    <meta property="og:image" content="https://www.chongkelai.com/statics/images/og-cover.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="宠客来科技 - 宠物行业数字化服务专家">
+    <meta property="og:site_name" content="宠客来科技">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="宠客来科技 - 宠物行业数字化服务专家">
+    <meta name="twitter:description" content="以「一物一码」为核心，为宠物行业与门店提供全链路数字化解决方案。">
+    <meta name="twitter:image" content="https://www.chongkelai.com/statics/images/og-cover.png">
 
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif; background: #f5f7fa; }
+    <!-- DNS 预连接：加速外部资源加载 -->
+    <link rel="preconnect" href="https://cklmssh.oss-cn-beijing.aliyuncs.com">
+    <link rel="dns-prefetch" href="https://cklmssh.oss-cn-beijing.aliyuncs.com">
 
-    .app-container { padding: 20px; }
-    .about-page { min-height: 100vh; background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); padding-bottom: 40px; }
-
-    /* 顶部导航 */
-    .about-page .site-nav { position: sticky; top: -20px; z-index: 100; margin: -20px -20px 0; background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(10px); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); }
-    .about-page .site-nav .site-nav-inner { max-width: 1400px; margin: 0 auto; padding: 0 20px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-    .about-page .site-nav .nav-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-    .about-page .site-nav .nav-brand .nav-logo { width: 30px; height: 30px; display: block; }
-    .about-page .site-nav .nav-brand .nav-title { font-size: 1.15rem; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-    .about-page .site-nav .nav-links { display: flex; align-items: center; gap: 24px; }
-    .about-page .site-nav .nav-links .nav-link { color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; cursor: pointer; transition: color 0.2s ease; }
-    .about-page .site-nav .nav-links .nav-link:hover { color: #41b883; }
-
-    /* 欢迎区域 */
-    .about-page .welcome-section { background: linear-gradient(135deg, #1b2a4a 0%, #2f6b4f 100%); color: #fff; padding: 50px 0; text-align: center; margin: 0 -20px 30px; position: relative; overflow: hidden; }
-    .about-page .welcome-section::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%); transform: rotate(30deg); }
-    .about-page .welcome-section .logo-container { margin-bottom: 15px; display: flex; justify-content: center; }
-    .about-page .welcome-section .logo-container .logo-icon { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.15); border-radius: 50%; font-size: 40px; backdrop-filter: blur(10px); animation: float 3s ease-in-out infinite; }
-    .about-page .welcome-section .welcome-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
-    .about-page .welcome-section .welcome-content .welcome-title { font-size: 2.8rem; font-weight: 700; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
-    .about-page .welcome-section .welcome-content .welcome-title .logo-text { color: #ffd700; }
-    .about-page .welcome-section .welcome-content .welcome-subtitle { font-size: 1.2rem; margin-bottom: 25px; opacity: 0.9; font-weight: 300; max-width: 800px; margin-left: auto; margin-right: auto; }
-    .about-page .welcome-section .welcome-content .version-badge { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-    .about-page .welcome-section .welcome-content .version-badge .el-tag { border: none; }
-    .about-page .welcome-section .welcome-content .version-badge .badge-license { background: #f0a020; color: #fff; }
-    .about-page .welcome-section .welcome-content .version-badge .badge-checkin { background: #2f8bfd; color: #fff; }
-    .about-page .welcome-section .welcome-content .version-badge .badge-care { background: #7C3AED; color: #fff; }
-    .about-page .welcome-section .welcome-content .version-badge .badge-monitor { background: #0ea5e9; color: #fff; }
-    .about-page .welcome-section .welcome-content .version-badge .badge-meals { background: #41b883; color: #fff; }
-
-    /* 区块通用 */
-    .about-page .section-block { max-width: 1200px; margin: 0 auto 40px; }
-    .about-page .section-main-title { text-align: center; font-size: 1.8rem; font-weight: 700; color: #333; margin-bottom: 8px; }
-    .about-page .section-main-desc { text-align: center; color: #888; font-size: 0.95rem; margin: 0 auto 24px; }
-    .about-page .main-content { margin: 0 auto; padding: 0 4px; row-gap: 20px; }
-
-    /* 卡片通用 */
-    .about-page .module-card { position: relative; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); overflow: hidden; transition: all 0.3s ease; height: 100%; margin-bottom: 20px; }
-    .about-page .module-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12); }
-    .about-page .module-card .card-header { padding: 20px 24px; display: flex; align-items: center; gap: 12px; }
-    .about-page .module-card .card-header .header-icon { font-size: 32px; }
-    .about-page .module-card .card-header .header-text { display: flex; flex-direction: column; }
-    .about-page .module-card .card-header .section-title { font-size: 1.35rem; font-weight: 600; margin: 0; color: #fff; }
-    .about-page .module-card .card-header .section-tag { font-size: 0.78rem; color: rgba(255, 255, 255, 0.85); margin-top: 2px; }
-    .about-page .module-card .card-body { padding: 24px; }
-    .about-page .module-card .card-body .module-desc { color: #666; font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6; }
-
-    /* 模块配色 */
-    .about-page .checkin-card .card-header { background: linear-gradient(135deg, #2f8bfd 0%, #53a8ff 100%); }
-    .about-page .care-card .card-header { background: linear-gradient(135deg, #7C3AED 0%, #a855f7 100%); }
-    .about-page .monitor-card .card-header { background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); }
-    .about-page .meals-card .card-header { background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); }
-    .about-page .wms-card .card-header { background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%); }
-    .about-page .patrol-card .card-header { background: linear-gradient(135deg, #db2777 0%, #f472b6 100%); }
-    .about-page .mobile-card .card-header { background: linear-gradient(135deg, #475569 0%, #64748b 100%); }
-    .about-page .miniprogram-card .card-header { background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%); }
-
-    /* Pro 标识 */
-    .about-page .module-card.is-pro { border: 1px solid #f0a020; box-shadow: 0 8px 24px rgba(240, 160, 32, 0.18); }
-    .about-page .module-card.is-pro .pro-badge { position: absolute; top: 12px; right: 12px; z-index: 2; display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 999px; background: linear-gradient(135deg, #f0a020 0%, #f7c948 100%); color: #fff; font-size: 0.75rem; font-weight: 700; box-shadow: 0 2px 8px rgba(240, 160, 32, 0.4); }
-    .about-page .module-card.is-pro .pro-badge .el-icon { font-size: 0.85em; }
-
-    /* 技术栈卡片 */
-    .about-page .ability-card .card-header { background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%); }
-    .about-page .ability-card .ability-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .about-page .ability-card .ability-grid .ability-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px; background: #f8fafc; border-radius: 10px; transition: all 0.2s ease; }
-    .about-page .ability-card .ability-grid .ability-item:hover { background: #eef2f7; transform: translateX(3px); }
-    .about-page .ability-card .ability-grid .ability-item .ability-icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; background: #fff; border-radius: 8px; color: #4b6cb7; font-size: 1.2rem; flex-shrink: 0; }
-    .about-page .ability-card .ability-grid .ability-item .ability-info { flex: 1; }
-    .about-page .ability-card .ability-grid .ability-item .ability-info h4 { font-size: 0.95rem; font-weight: 600; color: #333; margin: 0 0 4px 0; }
-    .about-page .ability-card .ability-grid .ability-item .ability-info p { font-size: 0.82rem; color: #666; margin: 0; line-height: 1.4; }
-
-    /* 快速开始卡片 */
-    .about-page .quick-card .card-header { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); }
-    .about-page .quick-card .cmd-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-    .about-page .quick-card .cmd-list .cmd-item { display: flex; align-items: center; gap: 10px; background: #0f172a; border-radius: 10px; padding: 8px 12px; }
-    .about-page .quick-card .cmd-list .cmd-item .cmd-step { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; background: #10b981; color: #fff; border-radius: 50%; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
-    .about-page .quick-card .cmd-list .cmd-item .cmd-code { flex: 1; color: #a5f3fc; font-family: Menlo, Consolas, monospace; font-size: 0.82rem; white-space: nowrap; overflow-x: auto; }
-    .about-page .quick-card .cmd-list .cmd-item .cmd-copy { color: #94a3b8; flex-shrink: 0; }
-    .about-page .quick-card .cmd-list .cmd-item .cmd-copy:hover { color: #10b981; }
-    .about-page .quick-card .quick-actions { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-    .about-page .quick-card .quick-actions .el-button { justify-content: center; width: 100%; margin-left: 0; }
-    .about-page .quick-card .contact-info { padding-top: 20px; border-top: 1px solid #e5e7eb; }
-    .about-page .quick-card .contact-info h4 { font-size: 1rem; color: #333; margin-bottom: 12px; }
-    .about-page .quick-card .contact-info p { display: flex; align-items: center; gap: 8px; color: #666; font-size: 0.9rem; margin: 8px 0; }
-    .about-page .quick-card .contact-info p .el-icon { color: #409EFF; }
-
-    /* 功能列表 */
-    .about-page .feature-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-    .about-page .feature-list .feature-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 10px; transition: all 0.2s ease; }
-    .about-page .feature-list .feature-item:hover { background: #f1f5f9; transform: translateX(3px); }
-    .about-page .feature-list .feature-item .feature-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: #fff; border-radius: 8px; color: #409EFF; font-size: 1.1rem; flex-shrink: 0; }
-    .about-page .feature-list .feature-item .feature-info { flex: 1; }
-    .about-page .feature-list .feature-item .feature-info h4 { font-size: 0.95rem; font-weight: 600; color: #333; margin: 0 0 4px 0; }
-    .about-page .feature-list .feature-item .feature-info p { font-size: 0.85rem; color: #666; margin: 0; line-height: 1.4; }
-
-    /* 模块统计 */
-    .about-page .module-stats { display: flex; justify-content: space-around; background: #f8fafc; border-radius: 12px; padding: 16px; }
-    .about-page .module-stats .stat-box { display: flex; flex-direction: column; align-items: center; }
-    .about-page .module-stats .stat-box .stat-num { font-size: 1.15rem; font-weight: 700; color: #333; margin-bottom: 4px; }
-    .about-page .module-stats .stat-box .stat-label { font-size: 0.78rem; color: #888; text-align: center; }
-
-    /* 参与共建 */
-    .about-page .contribute-section .contribute-card { text-align: center; }
-    .about-page .contribute-section .contribute-card .card-body { padding: 30px 20px; }
-    .about-page .contribute-section .contribute-card .contribute-icon { font-size: 40px; margin-bottom: 12px; }
-    .about-page .contribute-section .contribute-card h4 { font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 8px; }
-    .about-page .contribute-section .contribute-card p { font-size: 0.85rem; color: #666; margin: 0; line-height: 1.6; }
-
-    /* 开源优势 */
-    .about-page .advantage-item { background: #fff; border-radius: 16px; padding: 30px 20px; text-align: center; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06); transition: all 0.3s ease; margin-bottom: 20px; }
-    .about-page .advantage-item:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); }
-    .about-page .advantage-item .adv-icon { font-size: 40px; margin-bottom: 12px; }
-    .about-page .advantage-item h4 { font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 8px; }
-    .about-page .advantage-item p { font-size: 0.85rem; color: #666; margin: 0; }
-
-    /* 动画 */
-    .about-page .card-animate { animation: slideUp 0.6s ease-out forwards; opacity: 0; transform: translateY(30px); }
-    .about-page .card-animate:nth-child(1) { animation-delay: 0.1s; }
-    .about-page .card-animate:nth-child(2) { animation-delay: 0.2s; }
-    .about-page .card-animate:nth-child(3) { animation-delay: 0.3s; }
-    .about-page .card-animate:nth-child(4) { animation-delay: 0.4s; }
-    .about-page .card-animate:nth-child(5) { animation-delay: 0.5s; }
-    .about-page .card-animate:nth-child(6) { animation-delay: 0.6s; }
-    .about-page .card-animate:nth-child(7) { animation-delay: 0.7s; }
-    .about-page .card-animate:nth-child(8) { animation-delay: 0.8s; }
-    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
-
-    /* 响应式 */
-    @media (max-width: 768px) {
-      .about-page .welcome-section { padding: 40px 0; }
-      .about-page .welcome-section .welcome-content .welcome-title { font-size: 2rem; }
-      .about-page .welcome-section .welcome-content .welcome-subtitle { font-size: 1rem; }
-      .about-page .ability-card .ability-grid { grid-template-columns: 1fr; }
-      .about-page .advantage-item { margin-bottom: 16px; }
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "宠客来科技",
+        "description": "专注宠物行业数字化服务，提供宠物一物一码溯源、宠物防走丢、门店活体交易SaaS、家庭共享记事、银杏树康养SAAS系统及软件定制服务。",
+        "slogan": "宠物行业数字化服务专家",
+        "url": "https://www.chongkelai.com/",
+        "logo": "https://www.chongkelai.com/statics/images/og-cover.png",
+        "email": "chongkelai@qq.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "重庆",
+            "addressRegion": "重庆市",
+            "addressCountry": "CN"
+        },
+        "brand": [
+            { "@type": "Brand", "name": "宠码通", "description": "宠物一物一码溯源平台" },
+            { "@type": "Brand", "name": "码上守护", "description": "宠物防走丢与数字铭牌管理平台" },
+            { "@type": "Brand", "name": "码上选宠", "description": "门店宠物活体交易SaaS" },
+            { "@type": "Brand", "name": "家记时刻", "description": "家庭一物一码共享记事平台" },
+            { "@type": "Brand", "name": "银杏树康养", "description": "银杏树康养SAAS系统" }
+        ]
     }
-  </style>
+    </script>
+
+    <!-- 站点结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "宠客来科技",
+        "alternateName": "宠客来科技官网",
+        "url": "https://www.chongkelai.com/",
+        "description": "宠客来科技专注宠物行业数字化服务，提供宠物一物一码溯源、防走丢铭牌、门店活体交易SaaS等解决方案。",
+        "inLanguage": "zh-CN",
+        "publisher": {
+            "@type": "Organization",
+            "name": "宠客来科技"
+        }
+    }
+    </script>
+
+    <!-- 面包屑结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "首页",
+                "item": "https://www.chongkelai.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "产品服务",
+                "item": "https://www.chongkelai.com/#products"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "合作咨询",
+                "item": "https://www.chongkelai.com/#contact"
+            }
+        ]
+    }
+    </script>
+
+    <!-- FAQ 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "产品是如何部署的？需要自己准备服务器吗？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "宠码通、码上守护、码上选宠、家记时刻、银杏树康养SAAS系统均提供 SaaS 云服务，开箱即用，无需自备服务器；同时支持私有化部署方案，满足企业对数据自主管控的需求。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "支持软件定制开发吗？周期多久？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "支持。我们提供灵活用工场景及多行业的软件定制开发服务，涵盖需求分析、原型设计、定制开发、测试上线与长期维护。具体周期根据需求复杂度而定，通常为 4-12 周。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "一物一码溯源的数据安全如何保障？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "我们采用等保级安全防护体系，数据全程加密存储与传输，赋码信息不可篡改、可审计；同时严格遵守个人信息保护相关法律法规，保障消费者与商家隐私安全。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "码上守护的铭牌在宠物走丢后如何找回？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "铭牌内置唯一二维码，任何人扫码即可在保护主人隐私的前提下发起联系请求，协助宠物回家；同时平台支持走失信息扩散与位置线索上报，最大化寻回几率。"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "门店如何快速接入码上选宠？",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "门店无需任何开发，提供营业执照等基础资料即可开通。我们会安排专属顾问一对一指导，从初始化配置到员工培训全程陪跑，一般 1-3 个工作日即可上线运营。"
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- 字体与Tailwind样式 -->
+    <link href="statics/css/fonts.css" rel="stylesheet">
+    <script src="statics/js/tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#0A3DCC',
+                        'brand-navy': '#081A3F',
+                        'brand-dark': '#0B1B3A',
+                        'brand-orange': '#FF7A00',
+                        'brand-teal': '#00B8A9',
+                        'brand-violet': '#6C5CE7',
+                        'brand-pink': '#FF5C8A',
+                        'brand-green': '#12B76A'
+                    },
+                    fontFamily: {
+                        'display': ['Montserrat', 'PingFang SC', 'sans-serif'],
+                        'sans': ['PingFang SC', 'Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'PingFang SC', 'Montserrat', sans-serif; }
+        .font-display { font-family: 'Montserrat', 'PingFang SC', sans-serif; }
+        .hero-gradient {
+            background: linear-gradient(135deg, #081A3F 0%, #0A3DCC 55%, #1557FF 100%);
+        }
+        .hero-glow {
+            background: radial-gradient(circle at 30% 20%, rgba(255,122,0,.18) 0%, transparent 45%),
+                        radial-gradient(circle at 75% 80%, rgba(0,184,169,.15) 0%, transparent 40%);
+        }
+        .section-gradient {
+            background: linear-gradient(180deg, #F7F9FF 0%, #FFFFFF 100%);
+        }
+        .nav-scrolled {
+            background: rgba(8, 26, 63, .95) !important;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 24px rgba(8,26,63,.15);
+        }
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: all .7s cubic-bezier(.22,.61,.36,1); }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        .toast-enter { animation: toastIn .3s ease forwards; }
+        .toast-exit { animation: toastOut .3s ease forwards; }
+        @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes toastOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }
+        .float-slow { animation: floatY 6s ease-in-out infinite; }
+        @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+        .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 24px 48px rgba(10,61,204,.12); }
+        .grid-pattern {
+            background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+            background-size: 56px 56px;
+        }
+    </style>
 </head>
-<body>
-  <div id="app"></div>
+<body class="bg-white text-gray-800">
 
-  <!-- 页面模板（字符串模板，Vue 运行时编译器解析，支持自定义组件自闭合） -->
-  <script type="text/x-template" id="tmpl">
-    <div class="app-container about-page">
-      <!-- 顶部导航 -->
-      <div class="site-nav">
-        <div class="site-nav-inner">
-          <div class="nav-brand" @click="goTarget('/index')">
-            <img src="logo.svg" alt="小护康养 logo" class="nav-logo" />
-            <span class="nav-title">小护康养 mini</span>
-          </div>
-          <div class="nav-links">
-            <a class="nav-link" @click="goTarget('/index')">首页</a>
-            <el-button type="primary" round @click="goTarget('/login')">
-              <el-icon><UserFilled /></el-icon>
-              登录入口
-            </el-button>
-          </div>
-        </div>
-      </div>
+    <!-- Toast 容器 -->
+    <div id="toastContainer" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-3 items-center"></div>
 
-      <!-- 头部欢迎区域 -->
-      <div class="welcome-section">
-        <div class="welcome-content">
-          <div class="logo-container">
-            <div class="logo-icon">
-              <img src="logo.svg" alt="小护康养 logo" class="leaf-icon" style="width: 48px; height: 48px" />
-            </div>
-          </div>
-          <h1 class="welcome-title">
-            <span class="logo-text">小护康养</span>mini · 开源项目
-          </h1>
-          <p class="welcome-subtitle">基于 Vue 3 + Element Plus + Vite 的养老机构数字化运营管理系统，MIT 协议开源，代码公开、自由使用、欢迎社区共建</p>
-          <div class="version-badge">
-            <el-tag type="success" size="large" round>v{{ version }}</el-tag>
-            <el-tag size="large" round class="badge-license">MIT License</el-tag>
-            <el-tag size="large" round class="badge-checkin">Vue 3</el-tag>
-            <el-tag size="large" round class="badge-care">Element Plus</el-tag>
-            <el-tag size="large" round class="badge-monitor">Vite</el-tag>
-            <el-tag size="large" round class="badge-meals">Pinia</el-tag>
-          </div>
-        </div>
-      </div>
-
-      <!-- 项目定位 -->
-      <div class="section-block">
-        <h2 class="section-main-title">一个开源的康养管理系统</h2>
-        <p class="section-main-desc">以 RuoYi-Vue3 骨架为底座二次开发，入住、照护、膳食等核心场景开源可用，智能监护为 Pro 版能力</p>
-        <el-row :gutter="20" justify="center" class="main-content">
-          <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="module in modules" :key="module.key">
-            <div class="module-card card-animate" :class="[module.key + '-card', { 'is-pro': module.pro }]">
-              <div v-if="module.pro" class="pro-badge">
-                <el-icon><Lock /></el-icon> Pro
-              </div>
-              <div class="card-header">
-                <div class="header-icon">{{ module.icon }}</div>
-                <div class="header-text">
-                  <h2 class="section-title">{{ module.name }}</h2>
-                  <span class="section-tag">{{ module.tag }}</span>
+    <!-- ==================== 顶部导航 ==================== -->
+    <header id="navbar" class="fixed top-0 w-full z-50 bg-brand-navy/90 backdrop-blur-md transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-br from-brand-blue to-brand-violet flex items-center justify-center shadow-lg shadow-brand-blue/30 group-hover:scale-105 transition-transform">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path>
+                    </svg>
                 </div>
-              </div>
-              <div class="card-body">
-                <p class="module-desc">{{ module.desc }}</p>
+                <div>
+                    <span class="font-display font-bold text-white text-lg lg:text-xl tracking-wide">宠客来科技</span>
+                    <span class="hidden sm:block text-[11px] text-brand-orange tracking-widest">CHONG KE LAI TECH</span>
+                </div>
+            </a>
 
-                <div class="feature-list">
-                  <div class="feature-item" v-for="(item, index) in module.features" :key="index">
-                    <el-icon class="feature-icon"><component :is="item.icon" /></el-icon>
-                    <div class="feature-info">
-                      <h4>{{ item.title }}</h4>
-                      <p>{{ item.desc }}</p>
+            <!-- 桌面端导航 -->
+            <div class="hidden lg:flex items-center gap-7 text-sm font-medium">
+                <a href="#products" class="text-gray-200 hover:text-brand-orange transition-colors">产品服务</a>
+                <a href="#tech" class="text-gray-200 hover:text-brand-orange transition-colors">技术实力</a>
+                <a href="#about" class="text-gray-200 hover:text-brand-orange transition-colors">关于我们</a>
+                <a href="#contact" class="text-gray-200 hover:text-brand-orange transition-colors">合作咨询</a>
+                <!-- 后台管理系统入口 -->
+                <div class="relative" id="adminNav">
+                    <button id="adminBtn" onclick="toggleAdminPanel()" aria-label="后台管理系统"
+                            class="flex items-center gap-1.5 text-gray-200 hover:text-brand-orange transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        后台管理
+                        <svg class="w-3.5 h-3.5 transition-transform duration-300" id="adminArrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <!-- 下拉面板：各产品平台后台入口 -->
+                    <div id="adminPanel" class="hidden absolute right-0 top-full mt-3 w-[540px] bg-white rounded-2xl shadow-2xl shadow-brand-navy/30 border border-gray-100 overflow-hidden">
+                        <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/60">
+                            <p class="font-bold text-brand-dark">后台管理系统</p>
+                            <p class="text-xs text-gray-400 mt-0.5">请选择产品平台，进入对应的管理后台</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1 p-2" id="adminLinks"></div>
                     </div>
-                  </div>
                 </div>
-
-                <div class="module-stats">
-                  <div class="stat-box" v-for="(stat, index) in module.stats" :key="index">
-                    <span class="stat-num">{{ stat.num }}</span>
-                    <span class="stat-label">{{ stat.label }}</span>
-                  </div>
-                </div>
-              </div>
+                <a href="#contact" class="px-6 py-2.5 rounded-full bg-brand-orange text-white font-semibold hover:bg-orange-600 transition-colors shadow-lg shadow-brand-orange/30">
+                    免费咨询
+                </a>
             </div>
-          </el-col>
-        </el-row>
-      </div>
 
-      <!-- 技术栈 + 快速开始 -->
-      <div class="section-block">
-        <h2 class="section-main-title">开箱即用的技术底座</h2>
-        <p class="section-main-desc">主流前端技术栈组合，工程规范与文档齐备，三步即可跑起属于你的实例</p>
-        <el-row :gutter="20" class="main-content">
-          <el-col :xs="24" :lg="16">
-            <div class="module-card ability-card card-animate">
-              <div class="card-header">
-                <div class="header-icon">🧰</div>
-                <h2 class="section-title">技术栈与工程能力</h2>
-              </div>
-              <div class="card-body">
-                <p class="module-desc">主流前端技术组合，模块划分清晰，注释与 README 齐备，方便二次开发与定制扩展</p>
-                <div class="ability-grid">
-                  <div class="ability-item" v-for="(item, index) in abilities" :key="index">
-                    <el-icon class="ability-icon"><component :is="item.icon" /></el-icon>
-                    <div class="ability-info">
-                      <h4>{{ item.title }}</h4>
-                      <p>{{ item.desc }}</p>
+            <!-- 移动端菜单按钮 -->
+            <button id="menuBtn" class="lg:hidden text-white p-2" aria-label="打开菜单">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-brand-navy/98 backdrop-blur-md border-t border-white/10">
+            <div class="px-6 py-4 space-y-1">
+                <a href="#products" class="block py-3 text-gray-200 hover:text-brand-orange transition-colors border-b border-white/5">产品服务</a>
+                <a href="#tech" class="block py-3 text-gray-200 hover:text-brand-orange transition-colors border-b border-white/5">技术实力</a>
+                <a href="#about" class="block py-3 text-gray-200 hover:text-brand-orange transition-colors border-b border-white/5">关于我们</a>
+                <a href="#contact" class="block py-3 text-gray-200 hover:text-brand-orange transition-colors border-b border-white/5">合作咨询</a>
+                <!-- 移动端后台入口 -->
+                <div class="py-3 border-b border-white/5">
+                    <p class="text-xs text-gray-400 mb-2 flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        后台管理系统
+                    </p>
+                    <div class="grid grid-cols-2 gap-2" id="mobileAdminLinks"></div>
+                </div>
+                <a href="#contact" class="block mt-3 mb-2 py-3 text-center rounded-xl bg-brand-orange text-white font-semibold">免费咨询</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 首屏 Hero ==================== -->
+    <main id="main-content">
+    <section class="relative hero-gradient text-white overflow-hidden pt-28 lg:pt-40 pb-20 lg:pb-28">
+        <div class="absolute inset-0 grid-pattern opacity-60"></div>
+        <div class="absolute inset-0 hero-glow"></div>
+
+        <!-- 漂浮装饰 -->
+        <div class="absolute top-24 right-[10%] w-24 h-24 rounded-2xl bg-brand-orange/20 backdrop-blur-sm rotate-12 float-slow hidden lg:block"></div>
+        <div class="absolute bottom-24 left-[8%] w-16 h-16 rounded-full bg-brand-teal/20 backdrop-blur-sm float-slow hidden lg:block" style="animation-delay:1.5s"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-on-scroll">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm text-brand-orange font-medium mb-8">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    宠物行业数字化服务专家
+                </span>
+            </div>
+
+            <h1 class="animate-on-scroll font-display font-extrabold text-4xl sm:text-5xl lg:text-7xl leading-tight tracking-tight" style="line-height: 1.2;">
+                用数字技术
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-yellow-400">重新定义</span>
+                <br>
+                宠物行业服务
+            </h1>
+
+            <p class="animate-on-scroll mt-6 text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                以「一物一码」为核心，宠客来科技为宠物行业与线下门店提供
+                <span class="text-white font-medium">溯源、守护、交易、营销</span>
+                全链路数字化解决方案，让每一个生命都被认真对待。
+            </p>
+
+            <div class="animate-on-scroll mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#products" class="px-8 py-3.5 rounded-full bg-brand-orange text-white font-semibold hover:bg-orange-600 transition-colors shadow-xl shadow-brand-orange/30">
+                    了解产品服务
+                </a>
+                <a href="#contact" class="px-8 py-3.5 rounded-full bg-white/10 border border-white/25 text-white font-semibold hover:bg-white/20 transition-colors backdrop-blur-sm">
+                    预约演示
+                </a>
+            </div>
+
+            <!-- 产品入口标签 -->
+            <div class="animate-on-scroll mt-14 flex flex-wrap justify-center gap-3">
+                <a href="#p1" class="px-4 py-2 rounded-full bg-white/5 border border-white/15 text-sm text-gray-200 hover:border-brand-orange hover:text-brand-orange transition-colors">宠码通 · 一物一码溯源</a>
+                <a href="#p2" class="px-4 py-2 rounded-full bg-white/5 border border-white/15 text-sm text-gray-200 hover:border-brand-orange hover:text-brand-orange transition-colors">码上守护 · 防走丢铭牌</a>
+                <a href="#p3" class="px-4 py-2 rounded-full bg-white/5 border border-white/15 text-sm text-gray-200 hover:border-brand-orange hover:text-brand-orange transition-colors">码上选宠 · 活体交易SaaS</a>
+                <a href="#p4" class="hidden px-4 py-2 rounded-full bg-white/5 border border-white/15 text-sm text-gray-200 hover:border-brand-orange hover:text-brand-orange transition-colors">码上选车宝 · 4S店预约</a>
+                <a href="#p5" class="px-4 py-2 rounded-full bg-white/5 border border-white/15 text-sm text-gray-200 hover:border-brand-orange hover:text-brand-orange transition-colors">家记时刻 · 共享记事</a>
+                <a href="#p6" class="px-4 py-2 rounded-full bg-white/5 border border-white/15 text-sm text-gray-200 hover:border-brand-orange hover:text-brand-orange transition-colors">银杏树康养 · 康养SAAS</a>
+                <a href="#p7" class="px-4 py-2 rounded-full bg-white/5 border border-white/15 text-sm text-gray-200 hover:border-brand-orange hover:text-brand-orange transition-colors">软件定制开发</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 数据实力 ==================== -->
+    <section class="bg-brand-navy text-white py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div class="animate-on-scroll">
+                <p class="font-display font-extrabold text-3xl lg:text-4xl text-brand-orange">6+</p>
+                <p class="mt-2 text-sm text-gray-400">核心产品线</p>
+            </div>
+            <div class="animate-on-scroll">
+                <p class="font-display font-extrabold text-3xl lg:text-4xl text-brand-orange">1000+</p>
+                <p class="mt-2 text-sm text-gray-400">服务门店与企业</p>
+            </div>
+            <div class="animate-on-scroll">
+                <p class="font-display font-extrabold text-3xl lg:text-4xl text-brand-orange">100万+</p>
+                <p class="mt-2 text-sm text-gray-400">赋码溯源物品</p>
+            </div>
+            <div class="animate-on-scroll">
+                <p class="font-display font-extrabold text-3xl lg:text-4xl text-brand-orange">7×24</p>
+                <p class="mt-2 text-sm text-gray-400">技术服务保障</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 产品服务 ==================== -->
+    <section id="products" class="py-20 lg:py-28 section-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14 lg:mb-20">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-semibold mb-4">PRODUCTS</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-brand-dark">产品服务</h2>
+                <p class="mt-4 text-gray-500 max-w-2xl mx-auto">
+                    六大产品线覆盖宠物溯源、安全守护、门店交易、家庭记录、康养服务与企业定制，为不同场景提供专业数字化工具。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+                <!-- 产品1: 宠码通 -->
+                <div id="p1" class="animate-on-scroll bg-white rounded-2xl border border-gray-100 p-8 card-hover">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-blue to-indigo-500 flex items-center justify-center shadow-lg shadow-brand-blue/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95-6.95l-1.41 1.41M7.46 16.54l-1.41 1.41m0-12l1.41 1.41m9.19 9.19l1.41 1.41M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+                            </svg>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs font-semibold">一物一码 · 溯源</span>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </el-col>
-
-          <el-col :xs="24" :lg="8">
-            <div class="module-card quick-card card-animate">
-              <div class="card-header">
-                <div class="header-icon">🚀</div>
-                <h2 class="section-title">快速开始</h2>
-              </div>
-              <div class="card-body">
-                <p class="module-desc">三步跑起属于你的实例，也欢迎提 Issue 与 PR 参与共建</p>
-
-                <div class="cmd-list">
-                  <div class="cmd-item" v-for="(cmd, index) in quickStart" :key="index">
-                    <div class="cmd-step">{{ index + 1 }}</div>
-                    <code class="cmd-code">{{ cmd }}</code>
-                    <el-button class="cmd-copy" link type="primary" @click="copyCmd(cmd)">
-                      <el-icon><CopyDocument /></el-icon>
-                    </el-button>
-                  </div>
+                    <h3 class="font-display font-bold text-xl text-brand-dark">宠码通</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-500">
+                        宠物一物一码溯源平台，为宠物食品、用品、活体赋予唯一数字身份，实现从源头到终端的全程可追溯。
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">防伪溯源</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">批次追踪</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">扫码营销</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">数据沉淀</span>
+                    </div>
+                    <button class="learn-more mt-6 text-sm font-semibold text-brand-blue hover:text-brand-orange transition-colors inline-flex items-center gap-1" data-name="宠码通">
+                        了解更多
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
                 </div>
 
-                <div class="quick-actions">
-                  <el-button type="primary" size="large" @click="goTarget('/login')" round>
-                    <el-icon><UserFilled /></el-icon>
-                    在线体验
-                  </el-button>
-                  <el-button type="success" size="large" @click="goTarget('/register')" round>
-                    <el-icon><EditPen /></el-icon>
-                    注册账号
-                  </el-button>
+                <!-- 产品2: 码上守护 -->
+                <div id="p2" class="animate-on-scroll bg-white rounded-2xl border border-gray-100 p-8 card-hover">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-teal to-emerald-500 flex items-center justify-center shadow-lg shadow-brand-teal/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-teal/10 text-brand-teal text-xs font-semibold">安全守护 · 建档</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-brand-dark">码上守护</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-500">
+                        宠物防走丢与数字铭牌管理平台，扫码即寻主，为每只宠物建立专属电子档案，守护每一段陪伴。
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">防走丢寻回</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">数字铭牌</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">宠物建档</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">健康记录</span>
+                    </div>
+                    <button href="https://www.chongkelai.com/msxc/website" target="_blank" class="learn-more mt-6 text-sm font-semibold text-brand-blue hover:text-brand-orange transition-colors inline-flex items-center gap-1" data-name="码上守护">
+                        了解更多
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
                 </div>
 
-                <div class="contact-info">
-                  <h4>开源信息</h4>
-                  <p><el-icon><Document /></el-icon> 许可证：MIT · 可免费商用</p>
-                  <p><el-icon><Share /></el-icon> 仓库：gitee.com/chongkelai/xiaohucare-mini-vue.git（骨架同源）</p>
-                  <p><el-icon><Operation /></el-icon> 分支：主分支保持稳定，特性走独立分支</p>
+                <!-- 产品3: 码上选宠 -->
+                <div id="p3" class="animate-on-scroll bg-white rounded-2xl border border-gray-100 p-8 card-hover">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-orange to-amber-500 flex items-center justify-center shadow-lg shadow-brand-orange/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18v18H3z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 9h18M9 21V9"></path>
+                            </svg>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange text-xs font-semibold">门店活体 · SaaS</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-brand-dark">码上选宠</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-500">
+                        门店宠物活体交易SaaS，覆盖选宠、预订、成交全流程，让宠物门店经营更高效、更规范。
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">活体管理</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">在线选宠</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">交易订单</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">门店管理</span>
+                    </div>
+                    <a href="https://www.chongkelai.com/msxc/website" target="_blank" class="learn-more mt-6 text-sm font-semibold text-brand-blue hover:text-brand-orange transition-colors inline-flex items-center gap-1" data-name="码上选宠">
+                        了解更多
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
                 </div>
-              </div>
+
+                <!-- 产品4: 码上选车宝（已隐藏：移除下方 div 的 hidden 类即可恢复展示） -->
+                <div id="p4" class="hidden animate-on-scroll bg-white rounded-2xl border border-gray-100 p-8 card-hover">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-violet to-purple-500 flex items-center justify-center shadow-lg shadow-brand-violet/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 6h8l2 4h2a2 2 0 012 2v5a1 1 0 01-1 1h-1a2 2 0 01-4 0H8a2 2 0 01-4 0H4a1 1 0 01-1-1v-5a2 2 0 012-2h2l2-4zm-2 9a1 1 0 100-2 1 1 0 000 2zm12 0a1 1 0 100-2 1 1 0 000 2z"></path>
+                            </svg>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-violet/10 text-brand-violet text-xs font-semibold">车主营销 · SaaS</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-brand-dark">码上选车宝</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-500">
+                        4S店优惠选车预约报名服务SaaS，聚合优惠活动与线索管理，为门店带来稳定到店客流。
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">优惠报名</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">预约到店</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">线索管理</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">活动营销</span>
+                    </div>
+                    <button class="learn-more mt-6 text-sm font-semibold text-brand-blue hover:text-brand-orange transition-colors inline-flex items-center gap-1" data-name="码上选车宝">
+                        了解更多
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 产品5: 家记时刻 -->
+                <div id="p5" class="animate-on-scroll bg-white rounded-2xl border border-gray-100 p-8 card-hover">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-pink to-rose-500 flex items-center justify-center shadow-lg shadow-brand-pink/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95-6.95l-1.41 1.41M7.46 16.54l-1.41 1.41"></path>
+                            </svg>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-pink/10 text-brand-pink text-xs font-semibold">家庭记录 · 共享</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-brand-dark">家记时刻</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-500">
+                        家庭一物一码共享记事平台，为家里的每件物品赋予数字印记，让全家人的记忆在扫码中延续。
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">物品赋码</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">共享记事</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">家庭相册</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">时光印记</span>
+                    </div>
+                    <button class="learn-more mt-6 text-sm font-semibold text-brand-blue hover:text-brand-orange transition-colors inline-flex items-center gap-1" data-name="家记时刻">
+                        了解更多
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 产品6: 银杏树康养SAAS系统 -->
+                <div id="p6" class="animate-on-scroll bg-white rounded-2xl border border-gray-100 p-8 card-hover">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-green to-lime-500 flex items-center justify-center shadow-lg shadow-brand-green/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-1.2 2.5-3.5 4-6 4 2.5 0 4.8 1.5 6 4 1.2-2.5 3.5-4 6-4-2.5 0-4.8-1.5-6-4z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 11v10m-4-3l4 3 4-3"></path>
+                            </svg>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-green/10 text-brand-green text-xs font-semibold">康养机构 · SaaS</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-brand-dark">银杏树康养SAAS系统</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-500">
+                        面向康养机构的数字化管理平台，覆盖入住建档、健康监测、护理服务与运营管理，让康养服务更专业、更安心。
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">入住建档</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">健康监测</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">护理工单</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">运营管理</span>
+                    </div>
+                    <a href="https://www.chongkelai.com/ginkgo/website" target="_blank" class="learn-more mt-6 text-sm font-semibold text-brand-blue hover:text-brand-orange transition-colors inline-flex items-center gap-1" data-name="银杏树康养SAAS系统">
+                        了解更多
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- 产品7: 软件定制服务 -->
+                <div id="p7" class="animate-on-scroll bg-white rounded-2xl border border-gray-100 p-8 card-hover">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-dark to-gray-700 flex items-center justify-center shadow-lg shadow-brand-dark/25">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-brand-dark/10 text-brand-dark text-xs font-semibold">定制开发 · 灵活用工</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-brand-dark">灵活用工软件定制服务</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-gray-500">
+                        面向企业的一站式软件定制开发服务，深耕灵活用工场景，助力企业快速实现业务数字化。
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">需求分析</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">定制开发</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">私有部署</span>
+                        <span class="px-3 py-1 rounded-lg bg-gray-50 text-xs text-gray-600">长期维护</span>
+                    </div>
+                    <button class="learn-more mt-6 text-sm font-semibold text-brand-blue hover:text-brand-orange transition-colors inline-flex items-center gap-1" data-name="软件定制服务">
+                        了解更多
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
-          </el-col>
-        </el-row>
-      </div>
+        </div>
+    </section>
 
-      <!-- 开源优势 -->
-      <div class="section-block">
-        <h2 class="section-main-title">为什么值得使用与参与</h2>
-        <el-row :gutter="20">
-          <el-col :xs="12" :sm="6" v-for="(adv, index) in advantages" :key="index">
-            <div class="advantage-item">
-              <div class="adv-icon">{{ adv.icon }}</div>
-              <h4>{{ adv.title }}</h4>
-              <p>{{ adv.desc }}</p>
+    <!-- ==================== 技术实力 ==================== -->
+    <section id="tech" class="py-20 lg:py-28 bg-brand-navy text-white relative overflow-hidden">
+        <div class="absolute inset-0 grid-pattern opacity-40"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14 lg:mb-20">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-brand-orange/15 text-brand-orange text-sm font-semibold mb-4">TECHNOLOGY</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl">技术实力</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">
+                    扎实的技术底座，支撑六大产品线稳定运行，为合作伙伴保驾护航。
+                </p>
             </div>
-          </el-col>
-        </el-row>
-      </div>
 
-      <!-- 参与共建 -->
-      <div class="section-block contribute-section">
-        <h2 class="section-main-title">参与共建</h2>
-        <p class="section-main-desc">代码之外同样欢迎反馈：文档勘误、体验问题、功能建议都是对开源社区的贡献</p>
-        <el-row :gutter="20" class="main-content">
-          <el-col :xs="24" :sm="8" v-for="(way, index) in contributeWays" :key="index">
-            <div class="module-card contribute-card card-animate">
-              <div class="card-body">
-                <div class="contribute-icon">{{ way.icon }}</div>
-                <h4>{{ way.title }}</h4>
-                <p>{{ way.desc }}</p>
-              </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div class="animate-on-scroll bg-white/5 border border-white/10 rounded-2xl p-8 text-center card-hover">
+                    <div class="w-14 h-14 mx-auto rounded-xl bg-brand-orange/15 flex items-center justify-center mb-5">
+                        <svg class="w-7 h-7 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95-6.95l-1.41 1.41M7.46 16.54l-1.41 1.41m0-12l1.41 1.41m9.19 9.19l1.41 1.41M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">一物一码引擎</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">全球唯一编码体系，赋码、识码、验码毫秒级响应，扫码即达。</p>
+                </div>
+
+                <div class="animate-on-scroll bg-white/5 border border-white/10 rounded-2xl p-8 text-center card-hover">
+                    <div class="w-14 h-14 mx-auto rounded-xl bg-brand-teal/15 flex items-center justify-center mb-5">
+                        <svg class="w-7 h-7 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a2 2 0 012-2h9l6 6v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 3v5h6M8 14h8M8 18h5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">SaaS 多租户架构</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">开箱即用、按需扩展，快速上线，助力门店与企业管理无忧。</p>
+                </div>
+
+                <div class="animate-on-scroll bg-white/5 border border-white/10 rounded-2xl p-8 text-center card-hover">
+                    <div class="w-14 h-14 mx-auto rounded-xl bg-brand-violet/15 flex items-center justify-center mb-5">
+                        <svg class="w-7 h-7 text-brand-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">数据安全合规</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">等保级安全防护体系，数据加密存储，隐私合规有保障。</p>
+                </div>
+
+                <div class="animate-on-scroll bg-white/5 border border-white/10 rounded-2xl p-8 text-center card-hover">
+                    <div class="w-14 h-14 mx-auto rounded-xl bg-brand-pink/15 flex items-center justify-center mb-5">
+                        <svg class="w-7 h-7 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">开放 API 生态</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">标准开放接口，与门店系统、电商平台、合作伙伴无缝对接。</p>
+                </div>
             </div>
-          </el-col>
-        </el-row>
-      </div>
-    </div>
-  </script>
+        </div>
+    </section>
 
-  <script>
-    const { createApp, ref } = Vue;
-    const { ElMessage } = ElementPlus;
-    const icons = window.ElementPlusIconsVue || {};
+    <!-- ==================== 关于我们 ==================== -->
+    <section id="about" class="py-20 lg:py-28 section-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="animate-on-scroll">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-semibold mb-4">ABOUT US</span>
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl text-brand-dark leading-tight">
+                        关于宠客来科技
+                    </h2>
+                    <p class="mt-6 text-gray-600 leading-relaxed">
+                        宠客来科技是专注于宠物行业数字化服务的科技公司。我们坚信，技术应当服务于每一个真实的生命。
+                        从宠物食品的溯源、走失宠物的寻回，到门店活体交易与康养服务，我们以「一物一码」为纽带，
+                        连接产品、门店、家庭与消费者，让每一次扫码都有温度，让每一笔交易更加透明。
+                    </p>
+                    <div class="mt-8 space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-brand-blue/10 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">使命</h4>
+                                <p class="text-sm text-gray-500 mt-1">用数字技术让每一个生命都被认真对待。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-brand-orange/10 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">愿景</h4>
+                                <p class="text-sm text-gray-500 mt-1">成为宠物行业值得信赖的数字化服务商。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 flex-shrink-0 rounded-xl bg-brand-teal/10 flex items-center justify-center">
+                                <svg class="w-5 h-5 text-brand-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-dark">价值观</h4>
+                                <p class="text-sm text-gray-500 mt-1">客户第一 · 专业专注 · 持续创新 · 真诚共赢。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    const App = {
-      template: '#tmpl',
-      setup() {
-        const version = ref('3.9.0');
+                <div class="animate-on-scroll relative">
+                    <div class="absolute -inset-4 bg-gradient-to-br from-brand-blue/10 to-brand-orange/10 rounded-3xl"></div>
+                    <div class="relative bg-white rounded-3xl shadow-2xl shadow-brand-blue/10 p-8 lg:p-10 border border-gray-100">
+                        <div class="flex items-center gap-3 mb-8">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-blue to-brand-violet flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-brand-dark">宠客来科技</h3>
+                        </div>
+                        <div class="space-y-5">
+                            <div class="flex items-center gap-3 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-brand-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path>
+                                </svg>
+                                <span>专注宠物行业数字化服务</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-brand-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                                <span>6 大产品线 · 服务千家企业门店</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-brand-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>7×24 小时技术服务保障</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-gray-600">
+                                <svg class="w-5 h-5 text-brand-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>数据安全 · 合规经营 · 隐私保护</span>
+                            </div>
+                        </div>
+                        <a href="#contact" class="mt-8 w-full block text-center px-6 py-3.5 rounded-full bg-brand-blue text-white font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-brand-blue/25">
+                            与我们合作
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        const quickStart = ref([
-          'git clone https://gitee.com/chongkelai/xiaohucare-mini-vue.git',
-          'cd xiaohucare-vue && npm install',
-          'npm run dev'
-        ]);
+    <!-- ==================== 合作咨询 ==================== -->
+    <section id="contact" class="py-20 lg:py-28 hero-gradient text-white relative overflow-hidden">
+        <div class="absolute inset-0 grid-pattern opacity-40"></div>
+        <div class="absolute inset-0 hero-glow"></div>
 
-        const modules = ref([
-          {
-            key: 'checkin', name: '入住管理', tag: '开源模块', icon: '🏠',
-            desc: '从入住评估、床位分配到退住结算，长者入住全流程在线管理',
-            features: [
-              { title: '入住评估', desc: '健康评估与护理等级评定，一人一档', icon: 'DocumentChecked' },
-              { title: '房态床位', desc: '床位可视化，入住率、预留、调换一目了然', icon: 'House' },
-              { title: '离住结算', desc: '押金、费用明细一键结算，退住交接规范', icon: 'Wallet' }
-            ],
-            stats: [ { num: '全流程', label: '入住闭环' }, { num: '1v1', label: '长者档案' }, { num: '实时', label: '床位状态' } ]
-          },
-          {
-            key: 'care', name: '康养照护', tag: '开源模块', icon: '🩺',
-            desc: '按护理等级定制照护计划，日常照护与交接班全程留痕',
-            features: [
-              { title: '护理计划', desc: '按等级定制照护任务，责任到人', icon: 'List' },
-              { title: '照护记录', desc: '喂食喂药、清洁体征打卡，家属可查', icon: 'Finished' },
-              { title: '交接班管理', desc: '护理员排班值班，交接内容自动同步', icon: 'Clock' }
-            ],
-            stats: [ { num: '等级化', label: '护理方案' }, { num: '全留痕', label: '照护记录' }, { num: '24h', label: '值班覆盖' } ]
-          },
-          {
-            key: 'meals', name: '老年膳食', tag: '开源模块', icon: '🍲',
-            desc: '贴合长者体质的营养配餐，每日餐单与特殊膳食科学管理',
-            features: [
-              { title: '营养配餐', desc: '依据慢病与体质定制均衡食谱', icon: 'Dish' },
-              { title: '每日餐单', desc: '周/月餐单排布，备餐用量自动汇总', icon: 'Tickets' },
-              { title: '特殊膳食', desc: '低糖、低盐、流食等分级供餐', icon: 'FirstAidKit' }
-            ],
-            stats: [ { num: '个性化', label: '营养方案' }, { num: '周/月', label: '餐单管理' }, { num: '多类', label: '治疗膳食' } ]
-          },
-          {
-            key: 'wms', name: '机构 WMS 管理', tag: '开源模块', icon: '📦',
-            desc: '面向机构自采物资的仓储管理，商品、出入库、盘点与库存预警一体化',
-            features: [
-              { title: '商品与库存', desc: '物资档案、批次库存实时可查', icon: 'Goods' },
-              { title: '出入库管理', desc: '采购入库、领用出库单据全程留痕', icon: 'Sell' },
-              { title: '盘点与预警', desc: '库存盘点、临期与低库存自动预警', icon: 'Box' }
-            ],
-            stats: [ { num: '批次', label: '库存台账' }, { num: '单据化', label: '出入库' }, { num: '实时', label: '预警提醒' } ]
-          },
-          {
-            key: 'patrol', name: '巡访工单', tag: '开源模块', icon: '📝',
-            desc: '面向社区与机构的巡访探访工单管理，计划排期、现场记录、隐患闭环全程可追溯',
-            features: [
-              { title: '巡访计划', desc: '周期排期与任务派发，人员对象一一对应', icon: 'Compass' },
-              { title: '现场记录', desc: '走访打卡与拍照留痕，状况实时回传', icon: 'Camera' },
-              { title: '隐患闭环', desc: '风险等级上报，处置与回访形成闭环', icon: 'Warning' }
-            ],
-            stats: [ { num: '周期化', label: '巡访排期' }, { num: '全留痕', label: '现场记录' }, { num: '分级', label: '隐患处置' } ]
-          },
-          {
-            key: 'monitor', name: '智能监护', tag: 'Pro 版', pro: true, icon: '📡',
-            desc: '电子围栏、跌倒报警、一键呼叫与视频监控，构筑安全防线',
-            features: [
-              { title: '电子围栏', desc: '防走失定位，越界自动告警', icon: 'MapLocation' },
-              { title: '跌倒/离床报警', desc: '智能设备感知异常，秒级推送', icon: 'Bell' },
-              { title: '一键呼叫', desc: '床头/腕带呼叫，护理站即时响应', icon: 'Service' }
-            ],
-            stats: [ { num: '24h', label: '实时监护' }, { num: '秒级', label: '告警响应' }, { num: '多端', label: '联动推送' } ]
-          },
-          {
-            key: 'mobile', name: '机构移动管理端', tag: 'Pro 版', pro: true, icon: '📱',
-            desc: '手机端随时处理机构日常，审批、告警、看板随身可控，与 PC 后台数据实时同步',
-            features: [
-              { title: '移动审批', desc: '入退住、费用、工单随身发起与审批', icon: 'Tickets' },
-              { title: '告警推送', desc: '呼叫与监护告警实时推送到人', icon: 'Bell' },
-              { title: '运营看板', desc: '入住率、照护质量移动端随时查看', icon: 'Odometer' }
-            ],
-            stats: [ { num: '多端', label: '数据同步' }, { num: '实时', label: '移动审批' }, { num: '随身', label: '告警推送' } ]
-          },
-          {
-            key: 'miniprogram', name: '小程序客户端', tag: 'Pro 版', pro: true, icon: '💙',
-            desc: '面向家属与长者的微信小程序，照护透明、随时互动，让不在身边也能安心牵挂',
-            features: [
-              { title: '照护动态', desc: '每日照护、体征与相册家属可查', icon: 'PictureFilled' },
-              { title: '在线缴费', desc: '账单、续费与消费明细手机端直达', icon: 'Wallet' },
-              { title: '探视互动', desc: '视频探视、留言与一键呼叫连线', icon: 'VideoCamera' }
-            ],
-            stats: [ { num: '透明', label: '照护可见' }, { num: '手机端', label: '在线缴费' }, { num: '实时', label: '视频探视' } ]
-          }
-        ]);
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto">
+                <!-- 联系方式 -->
+                <div class="animate-on-scroll text-center">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-brand-orange text-sm font-semibold mb-4">CONTACT US</span>
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl text-white leading-tight">
+                        开始数字化合作
+                    </h2>
+                    <p class="mt-4 text-gray-300 leading-relaxed">
+                        添加微信或发送邮件，随时联系我们获取专属方案。
+                    </p>
 
-        const abilities = ref([
-          { title: 'Vue 3.5 + Pinia', desc: '组合式 API 编写，状态管理轻量直观', icon: 'ChromeFilled' },
-          { title: 'Vite 6 构建', desc: '秒级冷启动与热更新，构建产物自动分块', icon: 'Lightning' },
-          { title: 'Element Plus 2.10', desc: '全站组件库支撑，图标全局注册开箱即用', icon: 'Grid' },
-          { title: 'ECharts 5 可视化', desc: '经营看板、统计报表、大屏图表复用', icon: 'TrendCharts' },
-          { title: '动态路由权限', desc: 'RBAC 菜单由后端下发，按钮级 v-hasPermi 控制', icon: 'Lock' },
-          { title: '国际化 i18n', desc: '内置中英文语言包，扩展新语言成本低', icon: 'Message' },
-          { title: 'RESTful API 层', desc: 'src/api 按业务域分目录，与后端 Controller 一一对应', icon: 'Connection' },
-          { title: '工程规范', desc: 'README 详尽记录编码约定、环境变量与已知坑', icon: 'Collection' }
-        ]);
+                    <div class="mt-10 grid md:grid-cols-2 gap-5 text-left">
+                        <!-- 微信号 -->
+                        <div class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-4">
+                            <div class="w-12 h-12 rounded-xl bg-brand-teal/15 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-brand-teal" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.403-1.241-.211-2.618.593-3.646 1.045-1.338 2.789-2.076 4.755-2.076.234 0 .465.016.693.036C15.223 5.817 12.29 2.188 8.691 2.188zm2.525 3.423c.33 0 .652.03.962.079-1.098 1.94-2.221 3.892-2.221 3.892-2.02 1.494-3.093 1.613-4.748 1.207l-.333-.09c.267-.06.553-.135.855-.231 1.394-.432 2.14-1.2 3.853-2.702 1.273-1.116 1.764-2.155 1.632-2.155zm-9.6 3.694c.334 0 .661.031.974.08-1.111 1.964-2.248 3.94-2.248 3.94-2.044 1.512-3.13 1.632-4.806 1.221l-.337-.091c.27-.061.56-.137.866-.234 1.411-.437 2.165-1.214 3.899-2.735 1.288-1.13 1.784-2.181 1.652-2.181zm9.13 6.408c-.237 0-.471.018-.702.039.407 1.256.214 2.65-.6 3.69-1.058 1.353-2.823 2.1-4.813 2.1-.237 0-.47-.016-.7-.037.408 1.256.215 2.65-.6 3.69-1.058 1.354-2.823 2.101-4.813 2.101-2.477 0-4.604-1.322-5.614-3.268-.28-.538-.49-1.136-.61-1.762.079.004.157.012.237.012 1.01 0 1.96-.217 2.81-.608a6.15 6.15 0 0 1-1.045-1.109c-.322-.446-.583-.94-.771-1.466 2.266 1.405 5.145 1.391 7.41-.03 1.6-1.005 2.598-2.527 2.876-4.229.246-1.55-.066-3.062-.83-4.292a5.146 5.146 0 0 1-.852-.229c1.984-.521 3.79.092 5.147 1.345 1.388 1.281 2.149 3.163 2.149 5.2 0 2.226-1.242 4.243-3.17 5.583l.398 1.512a.327.327 0 0 1-.167.375l.002.001a.318.318 0 0 1-.167.05c-.073 0-.142-.03-.19-.086l-1.48-1.049a7.6 7.6 0 0 1-1.04.233zm-7.32-3.746c.71 0 1.324-.581 1.324-1.327 0-.723-.614-1.309-1.324-1.309-.715 0-1.324.586-1.324 1.309 0 .746.609 1.327 1.324 1.327zm7.56 0c.716 0 1.324-.581 1.324-1.327 0-.723-.608-1.309-1.324-1.309-.71 0-1.324.586-1.324 1.309 0 .746.614 1.327 1.324 1.327z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-xs text-gray-400">微信号</p>
+                                <p class="font-semibold text-lg" id="wechatId">chongkelaile</p>
+                            </div>
+                            <button onclick="copyText('wechatId', '微信号')"
+                                    class="px-4 py-2 rounded-xl bg-brand-teal text-white text-sm font-medium hover:bg-emerald-600 transition-colors flex-shrink-0">
+                                复制
+                            </button>
+                        </div>
 
-        const advantages = ref([
-          { icon: '📜', title: 'MIT 协议', desc: '许可宽松，可自由使用、修改与商用' },
-          { icon: '👀', title: '代码透明', desc: '全量源码开放，可自行审计与裁剪' },
-          { icon: '🧱', title: '骨架成熟', desc: '源自 RuoYi-Vue3，社区验证、稳定可靠' },
-          { icon: '🤝', title: '社区共建', desc: '欢迎 Issue / PR，持续迭代演进' }
-        ]);
+                        <!-- 邮箱 -->
+                        <div class="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-4">
+                            <div class="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-6 h-6 text-brand-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-xs text-gray-400">商务合作邮箱</p>
+                                <p class="font-semibold text-lg" id="emailId">chongkelai@qq.com</p>
+                            </div>
+                            <button onclick="copyText('emailId', '邮箱')"
+                                    class="px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white text-sm font-medium hover:bg-white/20 transition-colors flex-shrink-0">
+                                复制
+                            </button>
+                        </div>
+                    </div>
 
-        const contributeWays = ref([
-          { icon: '🐞', title: '提交 Issue', desc: '反馈 Bug、安全问题与体验建议，附上复现步骤更受欢迎' },
-          { icon: '🌿', title: '发起 PR', desc: '遵循现有代码风格，一个 PR 聚焦一件事，方便 Review' },
-          { icon: '📖', title: '完善文档', desc: '勘误 README、补充部署示例与使用教程，降低他人上手成本' }
-        ]);
+                    <!-- 微信二维码 -->
+                    <div class="mt-8 inline-block bg-white rounded-2xl p-5 text-center shadow-2xl">
+                        <!-- 真实二维码请替换为 statics/images/wechat-qr.png 并更新下方 src -->
+                        <img src="https://cklmssh.oss-cn-beijing.aliyuncs.com/pub/company/ckl_cmt_wx.jpg" alt="宠客来科技微信二维码" class="w-44 h-auto" loading="lazy">
+                        <p class="mt-3 text-sm font-medium text-gray-800">微信扫一扫，添加专属顾问</p>
+                    </div>
+                </div>
 
-        function copyCmd(cmd) {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(cmd).then(() => {
-              ElMessage.success('命令已复制');
-            }).catch(() => {
-              ElMessage.error('复制失败，请手动选择复制');
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section id="faq" class="py-20 lg:py-28 section-gradient">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-brand-blue/10 text-brand-blue text-sm font-semibold mb-4">FAQ</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl text-brand-dark">常见问题</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="animate-on-scroll bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-brand-dark">Q1: 产品是如何部署的？需要自己准备服务器吗？</span>
+                        <svg class="w-5 h-5 text-brand-orange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 text-gray-500 leading-relaxed">
+                        宠码通、码上守护、码上选宠、家记时刻、银杏树康养SAAS系统均提供 SaaS 云服务，开箱即用，无需自备服务器；同时支持私有化部署方案，满足企业对数据自主管控的需求。
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-brand-dark">Q2: 支持软件定制开发吗？周期多久？</span>
+                        <svg class="w-5 h-5 text-brand-orange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 text-gray-500 leading-relaxed">
+                        支持。我们提供灵活用工场景及多行业的软件定制开发服务，涵盖需求分析、原型设计、定制开发、测试上线与长期维护。具体周期根据需求复杂度而定，通常为 4-12 周。
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-brand-dark">Q3: 一物一码溯源的数据安全如何保障？</span>
+                        <svg class="w-5 h-5 text-brand-orange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 text-gray-500 leading-relaxed">
+                        我们采用等保级安全防护体系，数据全程加密存储与传输，赋码信息不可篡改、可审计；同时严格遵守个人信息保护相关法律法规，保障消费者与商家隐私安全。
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-brand-dark">Q4: 码上守护的铭牌在宠物走丢后如何找回？</span>
+                        <svg class="w-5 h-5 text-brand-orange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 text-gray-500 leading-relaxed">
+                        铭牌内置唯一二维码，任何人扫码即可在保护主人隐私的前提下发起联系请求，协助宠物回家；同时平台支持走失信息扩散与位置线索上报，最大化寻回几率。
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                    <button class="faq-btn w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+                        <span class="font-semibold text-brand-dark">Q5: 门店如何快速接入码上选宠？</span>
+                        <svg class="w-5 h-5 text-brand-orange flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 text-gray-500 leading-relaxed">
+                        门店无需任何开发，提供营业执照等基础资料即可开通。我们会安排专属顾问一对一指导，从初始化配置到员工培训全程陪跑，一般 1-3 个工作日即可上线运营。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- ==================== 页脚 ==================== -->
+    <footer class="bg-brand-dark text-gray-400 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12">
+                <!-- 品牌 -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-blue to-brand-violet flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"></path>
+                            </svg>
+                        </div>
+                        <span class="font-display font-bold text-white text-lg">宠客来科技</span>
+                    </div>
+                    <p class="text-sm leading-relaxed">
+                        宠物行业数字化服务专家，以「一物一码」为核心，连接产品、门店、家庭与消费者。
+                    </p>
+                </div>
+
+                <!-- 产品 -->
+                <div>
+                    <h4 class="font-bold text-white text-lg mb-4">产品服务</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#p1" class="hover:text-brand-orange transition-colors">宠码通 · 一物一码溯源</a></li>
+                        <li><a href="#p2" class="hover:text-brand-orange transition-colors">码上守护 · 防走丢铭牌</a></li>
+                        <li><a href="#p3" class="hover:text-brand-orange transition-colors">码上选宠 · 活体交易SaaS</a></li>
+                        <li class="hidden"><a href="#p4" class="hover:text-brand-orange transition-colors">码上选车宝 · 选车预约</a></li>
+                        <li><a href="#p5" class="hover:text-brand-orange transition-colors">家记时刻 · 共享记事</a></li>
+                        <li><a href="#p6" class="hover:text-brand-orange transition-colors">银杏树康养 · 康养SAAS</a></li>
+                        <li><a href="#p7" class="hover:text-brand-orange transition-colors">零工结算 · 软件定制服务</a></li>
+                    </ul>
+                </div>
+
+                <!-- 关于 -->
+                <div>
+                    <h4 class="font-bold text-white text-lg mb-4">关于我们</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:text-brand-orange transition-colors">公司介绍</a></li>
+                        <li><a href="#tech" class="hover:text-brand-orange transition-colors">技术实力</a></li>
+                        <li><a href="#faq" class="hover:text-brand-orange transition-colors">常见问题</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">隐私政策</a></li>
+                        <li><a href="#" class="hover:text-brand-orange transition-colors">服务协议</a></li>
+                    </ul>
+                </div>
+
+                <!-- 联系 -->
+                <div>
+                    <h4 class="font-bold text-white text-lg mb-4">联系我们</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <span>chongkelai@qq.com</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.403-1.241-.211-2.618.593-3.646 1.045-1.338 2.789-2.076 4.755-2.076.234 0 .465.016.693.036C15.223 5.817 12.29 2.188 8.691 2.188zm2.525 3.423c.33 0 .652.03.962.079-1.098 1.94-2.221 3.892-2.221 3.892-2.02 1.494-3.093 1.613-4.748 1.207l-.333-.09c.267-.06.553-.135.855-.231 1.394-.432 2.14-1.2 3.853-2.702 1.273-1.116 1.764-2.155 1.632-2.155zm-9.6 3.694c.334 0 .661.031.974.08-1.111 1.964-2.248 3.94-2.248 3.94-2.044 1.512-3.13 1.632-4.806 1.221l-.337-.091c.27-.061.56-.137.866-.234 1.411-.437 2.165-1.214 3.899-2.735 1.288-1.13 1.784-2.181 1.652-2.181zm9.13 6.408c-.237 0-.471.018-.702.039.407 1.256.214 2.65-.6 3.69-1.058 1.353-2.823 2.1-4.813 2.1-.237 0-.47-.016-.7-.037.408 1.256.215 2.65-.6 3.69-1.058 1.354-2.823 2.101-4.813 2.101-2.477 0-4.604-1.322-5.614-3.268-.28-.538-.49-1.136-.61-1.762.079.004.157.012.237.012 1.01 0 1.96-.217 2.81-.608a6.15 6.15 0 0 1-1.045-1.109c-.322-.446-.583-.94-.771-1.466 2.266 1.405 5.145 1.391 7.41-.03 1.6-1.005 2.598-2.527 2.876-4.229.246-1.55-.066-3.062-.83-4.292a5.146 5.146 0 0 1-.852-.229c1.984-.521 3.79.092 5.147 1.345 1.388 1.281 2.149 3.163 2.149 5.2 0 2.226-1.242 4.243-3.17 5.583l.398 1.512a.327.327 0 0 1-.167.375l.002.001a.318.318 0 0 1-.167.05c-.073 0-.142-.03-.19-.086l-1.48-1.049a7.6 7.6 0 0 1-1.04.233zm-7.32-3.746c.71 0 1.324-.581 1.324-1.327 0-.723-.614-1.309-1.324-1.309-.715 0-1.324.586-1.324 1.309 0 .746.609 1.327 1.324 1.327zm7.56 0c.716 0 1.324-.581 1.324-1.327 0-.723-.608-1.309-1.324-1.309-.71 0-1.324.586-1.324 1.309 0 .746.614 1.327 1.324 1.327z"></path>
+                            </svg>
+                            <span>chongkelaile</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-brand-orange flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>中国 · 重庆</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">
+                    © 2025 宠客来科技. All rights reserved.
+                </p>
+                <div class="flex gap-4 text-gray-400">
+                    <a href="#" class="hover:text-brand-orange transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS 交互逻辑 -->
+    <script>
+        // ==================== 全局 DOM ====================
+        const navbar = document.getElementById('navbar');
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const toastContainer = document.getElementById('toastContainer');
+
+        // ==================== 1. 导航栏滚动效果 ====================
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // ==================== 2. 移动端菜单切换 ====================
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 点击移动端菜单链接后自动收起
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
             });
-          } else {
-            ElMessage.warning('当前浏览器不支持自动复制，请手动选择命令文本');
-          }
+        });
+
+        // ==================== 3. Toast 提示 ====================
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-brand-blue' : 'bg-red-500';
+            toast.className = `toast-enter ${bgColor} text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 min-w-[250px]`;
+            toast.innerHTML = `
+                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${type === 'success' ? 'M5 13l4 4L19 7' : 'M6 18L18 6M6 6l12 12'}"></path>
+                </svg>
+                <span class="font-medium">${message}</span>
+            `;
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-exit');
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
         }
 
-        // 静态介绍页里 /index、/login、/register 等路由并不存在，
-        // 这里改为：回到顶部，避免出现 404。若你有实际地址，替换即可。
-        function goTarget(url) {
-          const realLinks = {
-            // '/index': 'https://your-demo-site.example.com',
-            // '/login': 'https://your-demo-site.example.com/login',
-            // '/register': 'https://your-demo-site.example.com/register',
-          };
-          if (realLinks[url]) {
-            window.open(realLinks[url], '_blank');
-          } else {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
+        // ==================== 3.5 后台管理系统入口 ====================
+        // 各产品平台后台地址配置（替换 url 为真实后台地址即可）
+        const adminLinks = [
+            { name: '宠码通',     desc: '宠物一物一码溯源后台', color: 'from-brand-blue to-indigo-500',     url: 'https://www.chongkelai.com/cmt-api' },
+            { name: '码上守护',   desc: '防走丢与数字铭牌后台', color: 'from-brand-teal to-emerald-500',     url: 'https://www.chongkelai.com/pr-api' },
+            { name: '码上选宠',   desc: '门店活体交易管理后台', color: 'from-brand-orange to-amber-500',    url: 'https://www.chongkelai.com/msxc/website' },
+            { name: '码上选车宝', desc: '4S店选车预约管理后台', color: 'from-brand-violet to-purple-500',   url: 'https://www.chongkelai.com/pr-api' },
+            { name: '家记时刻',   desc: '家庭共享记事管理后台', color: 'from-brand-pink to-rose-500',       url: '#' },
+            { name: '银杏树康养', desc: '康养SAAS系统管理后台',   color: 'from-brand-green to-lime-500',      url: 'https://www.chongkelai.com/ginkgo/website' },
+            { name: '灵活用工',   desc: '定制系统管理后台',     color: 'from-brand-dark to-gray-700',       url: '#' },
+            { name: '强生宠儿',   desc: '强生宠儿独享后台',     color: 'from-brand-teal to-gray-700',       url: 'http://qsapp.chongkelai.com/cmt-api/stage/index.html' }
+        ];
+
+        function renderAdminLinks(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = adminLinks.map(link => `
+                <a href="${link.url}" target="_blank" rel="noopener"
+                   class="flex items-center gap-3 p-3 rounded-xl hover:bg-brand-blue/5 transition-colors group">
+                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br ${link.color} flex items-center justify-center flex-shrink-0 shadow-md">
+                        <svg class="w-4.5 h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a2 2 0 012-2h9l6 6v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 3v5h6"></path>
+                        </svg>
+                    </div>
+                    <div class="min-w-0">
+                        <p class="text-sm font-semibold text-brand-dark group-hover:text-brand-blue transition-colors">${link.name}</p>
+                        <p class="text-xs text-gray-400 truncate">${link.desc}</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+        renderAdminLinks('adminLinks');
+        renderAdminLinks('mobileAdminLinks');
+
+        // 桌面端下拉面板开关
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            const arrow = document.getElementById('adminArrow');
+            panel.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-180');
         }
 
-        return { version, quickStart, modules, abilities, advantages, contributeWays, copyCmd, goTarget };
-      }
-    };
+        // 点击面板外部时关闭
+        document.addEventListener('click', (e) => {
+            const adminNav = document.getElementById('adminNav');
+            const panel = document.getElementById('adminPanel');
+            if (!adminNav || panel.classList.contains('hidden')) return;
+            if (!adminNav.contains(e.target)) {
+                panel.classList.add('hidden');
+                document.getElementById('adminArrow').classList.remove('rotate-180');
+            }
+        });
 
-    const app = createApp(App);
-    app.use(ElementPlus);
-    // 全局注册所有 Element Plus 图标，使 <UserFilled/>、<component :is="'House'"/> 等可用
-    for (const [name, comp] of Object.entries(icons)) {
-      app.component(name, comp);
-    }
+        // ==================== 4. 复制微信号 / 邮箱 ====================
+        async function copyText(elementId, label) {
+            const text = document.getElementById(elementId).textContent.trim();
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch (err) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+            }
+            showToast(`${label} ${text} 已复制`);
+        }
 
-    app.mount('#app');
-  </script>
+        // ==================== 5. 产品卡片「了解更多」提示 ====================
+        document.querySelectorAll('.learn-more').forEach(btn => {
+            btn.addEventListener('click', () => {
+                showToast(`已收到您对「${btn.dataset.name}」的兴趣，欢迎通过下方表单咨询`);
+            });
+        });
+
+        // ==================== 6. 滚动动画初始化 ====================
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        animateElements.forEach(el => observer.observe(el));
+
+        // ==================== 7. FAQ 切换函数 ====================
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+    </script>
 </body>
 </html>
