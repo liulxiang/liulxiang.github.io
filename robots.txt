@@ -1,0 +1,8 @@
+# 宠客来科技官网 - 搜索引擎爬虫规则
+# 注：Sitemap 地址中的域名请替换为你的正式域名
+
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://www.chongkelai.com/sitemap.xml
