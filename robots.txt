@@ -5,4 +5,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://www.chongkelai.com/sitemap.xml
+Sitemap: https://liulxiang.github.io/sitemap.xml
